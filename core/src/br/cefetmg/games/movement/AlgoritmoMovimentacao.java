@@ -13,6 +13,7 @@ public abstract class AlgoritmoMovimentacao {
     protected float maxVelocidade;
     public Alvo alvo;
     private final char nome;
+    public final int raio = 10;
 
     public AlgoritmoMovimentacao(char nome) {
         this.nome = nome;

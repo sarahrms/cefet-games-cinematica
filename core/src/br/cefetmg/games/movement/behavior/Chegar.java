@@ -11,11 +11,11 @@ import com.badlogic.gdx.math.Vector3;
  *
  * @author Flávio Coutinho <fegemo@cefetmg.br>
  */
-public class Fugir extends AlgoritmoMovimentacao {
+public class Chegar extends AlgoritmoMovimentacao {
 
-    private static final char NOME = 'f';
+    private static final char NOME = 'a';
 
-    public Fugir(float maxVelocidade) {
+    public Chegar(float maxVelocidade) {
         super(NOME);
         super.maxVelocidade = maxVelocidade;
     }
@@ -23,11 +23,13 @@ public class Fugir extends AlgoritmoMovimentacao {
     @Override
     public Direcionamento guiar(Pose agente) {
         Direcionamento output = new Direcionamento();
-        Vector3 aux = new Vector3(agente.posicao);
-        output.velocidade =  aux.sub(alvo.getObjetivo());     
+        Vector3 aux = new Vector3(alvo.getObjetivo());
+        output.velocidade = aux.sub(agente.posicao);                
         output.velocidade.nor();
         output.velocidade = output.velocidade.scl(maxVelocidade);
-        agente.olharNaDirecaoDaVelocidade(output.velocidade);
+        if(agente.posicao.dst2(alvo.getObjetivo())>raio*raio){           
+            agente.olharNaDirecaoDaVelocidade(output.velocidade);            
+        }
         output.rotacao = 0;
         return output;
         
@@ -35,7 +37,7 @@ public class Fugir extends AlgoritmoMovimentacao {
 
     @Override
     public int getTeclaParaAtivacao() {
-        return Keys.F;
+        return Keys.A;
     }
 
 }
